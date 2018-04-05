@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import {MetaModule} from './meta/meta.module';
+import {BcgModule} from './bcg/bcg.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,7 @@ import {MetaModule} from './meta/meta.module';
     BrowserModule,
     FormsModule,
     HttpModule,
-    MetaModule
+    BcgModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MetaSenderComponent} from './meta-sender/meta-sender.component';
+import {BcgCollectiblesComponent} from './bcg-collectibles/bcg-collectibles.component';
 import {UtilModule} from '../util/util.module';
 import {RouterModule} from '@angular/router';
 
@@ -10,8 +10,8 @@ import {RouterModule} from '@angular/router';
     RouterModule,
     UtilModule
   ],
-  declarations: [MetaSenderComponent],
-  exports: [MetaSenderComponent]
+  declarations: [BcgCollectiblesComponent],
+  exports: [BcgCollectiblesComponent]
 })
-export class MetaModule {
+export class BcgModule {
 }

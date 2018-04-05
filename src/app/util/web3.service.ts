@@ -1,25 +1,27 @@
 import {Injectable} from '@angular/core';
-import * as contract from 'truffle-contract';
 import {Subject} from 'rxjs/Rx';
-import Web3 from 'web3';
+
+// import * as contract from 'truffle-contract';
+declare var require: any;
+const contract = require('truffle-contract');
+import * as Web3 from 'web3';
 
 declare let window: any;
 
 @Injectable()
 export class Web3Service {
-  private web3: Web3;
+  public web3: Web3;
   private accounts: string[];
   public ready = false;
-  public MetaCoin: any;
   public accountsObservable = new Subject<string[]>();
 
   constructor() {
     window.addEventListener('load', (event) => {
-      this.bootstrapWeb3();
+      this.bootstrapWeb3().then();
     });
   }
 
-  public bootstrapWeb3() {
+  async bootstrapWeb3() {
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
     if (typeof window.web3 !== 'undefined') {
       // Use Mist/MetaMask's provider
@@ -33,20 +35,22 @@ export class Web3Service {
       this.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
     }
 
-    setInterval(() => this.refreshAccounts(), 100);
+    setInterval(() => this.refreshAccounts(), 2000);
   }
 
   public async artifactsToContract(artifacts) {
-    if (!this.web3) {
-      const delay = new Promise(resolve => setTimeout(resolve, 100));
+    for (let i = 0; i < 10; i++) {
+      if (this.web3) {
+        break;
+      }
+      console.log('Waiting for a web3 provider...');
+      const delay = new Promise(resolve => setTimeout(resolve, 1000));
       await delay;
-      return await this.artifactsToContract(artifacts);
     }
 
     const contractAbstraction = contract(artifacts);
     contractAbstraction.setProvider(this.web3.currentProvider);
     return contractAbstraction;
-
   }
 
   private refreshAccounts() {

@@ -1,0 +1,31 @@
+<h1>BlockChangers Hackathon 2018</h1>
+
+<div *ngIf="model.account">
+<div name="account" (change)="clickAddress($event)">
+  <h3>Your Metamask/Web3 address: <span id="account">{{model.account}}</span></h3>
+</div>
+
+<h3>Your balance of participation tokens is: <span id="balance">{{model.balance}}</span> BCG</h3>
+<div *ngFor="let token of model.tokens">
+  <span class="mono">{{token}}</span><br>
+</div>
+
+<br>
+<h1>Approve Transfer of BCG Token</h1>
+
+<label class="mono" for="tokenId">Token ID:</label><br>
+<input class="mono inp" type="text" id="tokenId" placeholder="e.g., 0x92836792abdc" (change)="setToken2Send($event)">
+
+
+<br>
+<label class="mono" for="receiver">To Address:</label><br>
+<input class="mono inp" type="text" id="receiver" placeholder="e.g., 0x93e66d9baea28c17d9fc393b53e3fbdd76899dae" (change)="setReceiver($event)">
+
+<br><br
+><button id="send" (click)="approveTransfer().then()">Approve transfer</button>
+<br><br>
+<span class="mono" style="color: red" id="status">{{status}}</span>
+</div>
+<div *ngIf="!model.account">
+  <h3 style="color: red">Please connect a web3 provider such as Metamask</h3><br>
+</div>
